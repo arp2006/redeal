@@ -1,4 +1,20 @@
 import * as chatService from "../services/chat.service.js";
+import { getIO } from "../socket.js";
+
+export async function startConversation(req, res) {
+  try {
+    const buyerId = Number(req.user.sub);
+    const { itemId } = req.body;
+
+    const conversation =
+      await chatService.startConversation(itemId, buyerId);
+
+    res.status(201).json(conversation);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to start conversation" });
+  }
+}
 
 export async function getChats(req, res) {
   try {
@@ -46,8 +62,8 @@ export async function sendMessage(req, res) {
     }
 
     const { message, receiverId } = await chatService.sendMessage(Number(convId), userId, msg);
-
-    // io.to(`user_${receiverId}`).emit("new_message", message);
+    const io = getIO();
+    io.to(`user_${receiverId}`).emit("new_message", message);
 
     res.status(201).json(message);
 

@@ -1,5 +1,20 @@
 import db from "../config/db.js";
 
+export async function startConversation(itemId, buyerId) {
+  const query = `
+    INSERT INTO conversations (item_id, buyer_id, seller_id)
+    SELECT $1, $2, seller_id
+    FROM items
+    WHERE id = $1
+    ON CONFLICT (item_id, buyer_id, seller_id)
+    DO UPDATE SET updated_at = NOW()
+    RETURNING *;
+  `;
+
+  const { rows } = await db.query(query, [itemId, buyerId]);
+  return rows[0];
+}
+
 export async function getChats(userId, type) {
   let whereClause = "";
   let userJoin = "";

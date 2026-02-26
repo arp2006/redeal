@@ -8,7 +8,7 @@ function Header() {
   const { user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-
+  
   const [userInfo, setUserInfo] = useState(null);
 
   const handleSearchSubmit = (e) => {

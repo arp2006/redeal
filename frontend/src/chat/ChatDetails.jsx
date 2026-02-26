@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 import { useNavigate } from "react-router-dom";
+import { getSocket } from "../socket";
 
 export default function ChatDetails({ chatId, onBack, type, name, item }) {
   const navigate = useNavigate();
@@ -52,6 +53,15 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
     setLoading(false);
   }
 
+
+  function handleNewMessage(message) {
+    if (Number(message.conv_id) === Number(chatId)) {
+      setMessages(prev => [...prev, message]);
+    }
+  }
+
+
+
   useEffect(() => {
     if (!chatId) return;
 
@@ -59,6 +69,15 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
     setLoading(true);
 
     loadChat();
+
+    const socket = getSocket();
+    if (!socket) return;
+    socket.on("new_message", handleNewMessage);
+
+    return () => {
+      socket.off("new_message", handleNewMessage);
+    };
+
   }, [chatId]);
 
   return (

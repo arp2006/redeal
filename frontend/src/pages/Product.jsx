@@ -27,33 +27,45 @@ function Product() {
     }
   }
 
-  const handleDelete = async () => {
+  const handleStartChat = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    if (user.id === post.seller_id) {
+      alert("You cannot chat with yourself.");
+      return;
+    }
+
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        navigate("/");
-      }
-      else {
-        const response = await fetch('http://localhost:3000/api/deletelisting', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ id }),
-        });
-        if (response.ok) {
-          setSuccess('Post deleted, redirecting to your account');
-          setTimeout(() => {
-            navigate('/account');
-          }, 1500);
-        }
-      }
+
+      const res = await fetch("http://localhost:3000/api/conversations/start", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ itemId: post.id }),
+      });
+
+      if (!res.ok) throw new Error("Failed to start conversation");
+
+      const conversation = await res.json();
+
+      navigate("/chat", {
+        state: {
+          convId: conversation.id,
+          sellerName: post.seller_name,
+          itemId: post.id,
+        },
+      });
+
+    } catch (err) {
+      console.error(err);
     }
-    catch {
-      console.error(error)
-    }
-  }
+  };
 
   useEffect(() => {
     if (loading) return;
@@ -108,7 +120,10 @@ function Product() {
           <div className="bg-white p-6 rounded-lg border border-slate-200">
             <h2 className="text-[#0d171b] tracking-light text-[36px] font-bold leading-tight"> ₹{[post.price]}</h2>
             <div className="mt-4 flex flex-col gap-3">
-              <button className="w-full flex items-center justify-center gap-2 min-w-[84px] max-w-[480px] cursor-pointer rounded-lg h-12 px-4 bg-[#13a4ec] text-slate-50 text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#0b8acb] transition-colors">
+              <button
+                onClick={handleStartChat} 
+                className="w-full flex items-center justify-center gap-2 min-w-[84px] max-w-[480px] cursor-pointer rounded-lg h-12 px-4 bg-[#13a4ec] text-slate-50 text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#0b8acb] transition-colors"
+              >
                 <span className="material-symbols-outlined">chat_bubble</span>
                 <span className="truncate">Chat with Seller</span>
               </button>
@@ -125,9 +140,9 @@ function Product() {
             <div className="mt-4 flex items-center justify-between">
               <p className="font-bold text-[#0d171b]">{post.seller_name}</p>
               {!user || post.seller_id !== user.id ? <></> : (
-                <button 
-                  onClick={() => navigate(`/edit/${post.id}`)} 
-                  className="px-4 py-2  bg-[#13a4ec] cursor-pointer text-white rounded-md text-sm hover:bg-[#0b8acb]" 
+                <button
+                  onClick={() => navigate(`/edit/${post.id}`)}
+                  className="px-4 py-2  bg-[#13a4ec] cursor-pointer text-white rounded-md text-sm hover:bg-[#0b8acb]"
                 >
                   Edit Post
                 </button>)}
@@ -137,7 +152,7 @@ function Product() {
 
         </div>
       </div>
-      
+
     </div>
   );
 }

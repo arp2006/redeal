@@ -4,6 +4,8 @@ import requireAuth from "../middleware/requireAuth.js";
 
 const router = Router();
 
+router.post("/conversations/start", requireAuth, chatController.startConversation)
+
 router.get("/chats/:type", requireAuth, chatController.getChats);
 
 router.get("/messages/:conversationId", requireAuth, chatController.getMessages);

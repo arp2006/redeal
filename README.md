@@ -25,7 +25,7 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 * Cloudinary
 * CORS
 * .ENV
-* Socket.io (in progress)
+* Socket.io
 
 ---
 
@@ -33,6 +33,7 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 
 * User authentication (Register / Login / Logout)
 * JWT-protected routes
+* Live chat
 * User profiles and settings
 * Post creation, editing, and browsing
 * Responsive UI with Tailwind CSS
@@ -51,7 +52,6 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 ## Future Improvements
 
 * Production deployment
-* Live chat implementation
 * Notifications for chat
 * RateLimiter
 * Proper email verification
@@ -66,28 +66,31 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 * Archived post details do not display correctly when clicked
 * .ENV file not loading before config files
 * Welcome Email
+* Live chat implementation
 
 ## Project Structure
-Yet to be updated
 ```
 project-root/
 │
-├── README.md
-│
 ├── backend/
 │   ├── node_modules/
-│   ├── temp/
-│   │
 │   ├── src/
 │   │   ├── config/
 │   │   │   ├── cloudinary.js
-│   │   │   └── db.js
+│   │   │   ├── db.js
+│   │   │   ├── env.js
+│   │   │   └── resend.js
 │   │   │
 │   │   ├── controllers/
 │   │   │   ├── auth.controller.js
+│   │   │   ├── chat.controller.js
 │   │   │   ├── item.controller.js
 │   │   │   ├── upload.controller.js
 │   │   │   └── user.controller.js
+│   │   │
+│   │   ├── emails/
+│   │   │   ├── emailHandlers.js
+│   │   │   └── emailTemplate.js
 │   │   │
 │   │   ├── middleware/
 │   │   │   ├── auth.js
@@ -95,29 +98,45 @@ project-root/
 │   │   │
 │   │   ├── routes/
 │   │   │   ├── auth.routes.js
+│   │   │   ├── chat.routes.js
 │   │   │   ├── item.routes.js
 │   │   │   ├── upload.routes.js
 │   │   │   └── user.routes.js
 │   │   │
 │   │   ├── services/
 │   │   │   ├── auth.service.js
+│   │   │   ├── chat.service.js
 │   │   │   ├── item.service.js
 │   │   │   └── user.service.js
 │   │   │
 │   │   ├── app.js
-│   │   └── server.js
+│   │   ├── server.js
+│   │   └── socket.js
 │   │
+│   ├── temp/
 │   ├── .env
 │   ├── package.json
-│   └── package-lock.json
+│   ├── package-lock.json
+│   └── queries.sql
 │
 ├── frontend/
+│   ├── node_modules/
 │   ├── public/
 │   │   └── styles.css
 │   │
 │   ├── src/
 │   │   ├── assets/
-│   │   │   └── logo.svg
+│   │   │   ├── logo.png
+│   │   │   ├── logo.svg
+│   │   │   └── send.svg
+│   │   │
+│   │   ├── chat/
+│   │   │   ├── ChatDetails.jsx
+│   │   │   ├── ConversationItem.jsx
+│   │   │   ├── ConversationList.jsx
+│   │   │   ├── MessageBubble.jsx
+│   │   │   ├── MessageInput.jsx
+│   │   │   └── MessageList.jsx
 │   │   │
 │   │   ├── components/
 │   │   │   ├── settings/
@@ -128,8 +147,10 @@ project-root/
 │   │   │   │   └── SettingsSidebar.jsx
 │   │   │   │
 │   │   │   ├── AccDropdown.jsx
+│   │   │   ├── ArchivedItem.jsx
 │   │   │   ├── Carousel.jsx
 │   │   │   ├── Footer.jsx
+│   │   │   ├── FormattedDateTime.jsx
 │   │   │   ├── Header.jsx
 │   │   │   ├── Item.jsx
 │   │   │   └── Sidebar.jsx
@@ -138,6 +159,7 @@ project-root/
 │   │   │   ├── AboutUs.jsx
 │   │   │   ├── Account.jsx
 │   │   │   ├── ArchivedPost.jsx
+│   │   │   ├── Chat.jsx
 │   │   │   ├── Contact.jsx
 │   │   │   ├── Create.jsx
 │   │   │   ├── EditPost.jsx
@@ -157,17 +179,16 @@ project-root/
 │   │   ├── AuthContext.jsx
 │   │   ├── Layout.jsx
 │   │   ├── main.jsx
-│   │   └── RequireAuth.jsx
+│   │   ├── RequireAuth.jsx
+│   │   └── socket.js
 │   │
-│   ├── .gitignore
 │   ├── index.html
 │   ├── package.json
 │   ├── package-lock.json
 │   └── vite.config.js
 │
-└── queries.sql
-```
-
+├── .gitignore
+└── README.md
 ---
 
 ## Notes
