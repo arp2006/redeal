@@ -25,8 +25,8 @@ export default function MessageInput({ chatId, onMessageSent }) {
       if (!res.ok) throw new Error("Failed to send");
 
       const savedMessage = await res.json();
-      onMessageSent(savedMessage);
       setText("");
+      onMessageSent(savedMessage);
     } 
     catch (err) {
       console.error("Send failed", err);

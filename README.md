@@ -43,6 +43,8 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 ## Known Issues
 
 * CSS layout breaks in some sections
+* Manage posts showing for both buying and selling
+* Latest chats dont jump to begining 
 
 ---
 
@@ -52,6 +54,7 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 * Live chat implementation
 * Notifications for chat
 * RateLimiter
+* Proper email verification
 
 ---
 

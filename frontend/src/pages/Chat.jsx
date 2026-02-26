@@ -9,10 +9,12 @@ export default function ChatLayout() {
   const [otherUser, setOtherUser] = useState("");
   const [productId, setProductId] = useState(null);
   const [activeChatType, setActiveChatType] = useState("buying");
+  const [conversations, setConversations] = useState([]);
 
   function handleKeyDown(e) {
     if (e.key === "Escape") {
       setShowChat(false);
+      setActiveChatId(null);
     }
   }
 
@@ -30,6 +32,8 @@ export default function ChatLayout() {
         <aside className="flex w-full md:w-[350px] lg:w-[400px] flex-col border-r border-slate-200 bg-white">
           <ConversationList
             activeId={activeChatId}
+            setConversations = {setConversations}
+            conversations = {conversations}
             onSelect={(chatId, type, name, product) => {
               setActiveChatId(chatId);
               setShowChat(true);

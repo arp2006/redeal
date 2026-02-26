@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import ConversationItem from "./ConversationItem";
 
-export default function ConversationList({ onSelect, activeId }) {
-  const [conversations, setConversations] = useState([]);
+export default function ConversationList({ onSelect, activeId, conversations, setConversations }) {
   const [loading, setLoading] = useState(false);
   const [conversationType, setConversationType] = useState("buying");
 

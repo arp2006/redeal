@@ -8,7 +8,7 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [postInfo, setPostInfo] = useState({});
-  
+
   async function getInfo() {
     try {
       const response = await fetch(`http://localhost:3000/api/items/${item}?summary=true`, {
@@ -23,7 +23,7 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
       console.error(error);
     }
   }
-  
+
   async function fetchMessages() {
     setLoading(true);
     try {
@@ -46,10 +46,19 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
     }
   }
 
+  async function loadChat() {
+    setLoading(true);
+    await Promise.all([fetchMessages(), getInfo()]);
+    setLoading(false);
+  }
+
   useEffect(() => {
     if (!chatId) return;
-    fetchMessages();
-    getInfo();
+
+    setMessages([]);
+    setLoading(true);
+
+    loadChat();
   }, [chatId]);
 
   return (
@@ -60,7 +69,7 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
           <div className="min-w-0">
             <p className="font-bold text-lg truncate">{name}</p>
             <p className="text-xs text-green-500 flex items-center gap-1">
-              Online 
+              Online
             </p>
           </div>
         </div>
@@ -71,7 +80,7 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
             <p className="text-xs font-bold truncate">{postInfo.title}</p>
             <p className="text-[10px] text-slate-500">{postInfo.price}</p>
           </div>
-          <button 
+          <button
             className="bg-[#3498DB] text-white text-[10px] h-[2rem] font-bold px-3 py-1 rounded-lg cursor-pointer hover:bg-[#0a6bab] transition"
             onClick={() => navigate(`/product/${item}`)}
           >
@@ -81,7 +90,12 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
       </div>
 
       <MessageList messages={messages} loading={loading} type={type} />
-      <MessageInput chatId={chatId} />
+      <MessageInput
+        chatId={chatId}
+        onMessageSent={(newMessage) => {
+          setMessages((prev) => [...prev, newMessage]);
+        }}
+      />
     </>
   );
 }

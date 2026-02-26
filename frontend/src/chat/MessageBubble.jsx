@@ -1,5 +1,3 @@
-
-
 export default function MessageBubble({ text, mine }) {
   return (
     <div className={`max-w-[80%] ${mine ? "self-end" : "self-start"}`}>

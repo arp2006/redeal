@@ -1,6 +1,5 @@
 export default function ConversationItem({ onClick, id, activeId, data }) {
   let active = activeId === id;
-  (activeId === id) ? active = true : active = false;
   return (
     <div
       onClick={onClick}
