@@ -45,15 +45,13 @@ export async function sendMessage(req, res) {
       return res.status(400).json({ error: "Invalid input" });
     }
 
-    const message = await chatService.sendMessage(
-      Number(convId),
-      userId,
-      msg
-    );
+    const { message, receiverId } = await chatService.sendMessage(Number(convId), userId, msg);
+
+    // io.to(`user_${receiverId}`).emit("new_message", message);
 
     res.status(201).json(message);
-  } 
-  catch (err) {
+
+  } catch (err) {
     console.error("SEND MESSAGE ERROR:", err);
 
     if (err.message === "FORBIDDEN") {

@@ -56,7 +56,7 @@ export async function getMessages(convId, userId) {
 
 export async function sendMessage(convId, userId, msg) {
   const check = `
-    SELECT 1
+    SELECT buyer_id, seller_id
     FROM conversations
     WHERE id = $1
       AND (buyer_id = $2 OR seller_id = $2)
@@ -68,13 +68,31 @@ export async function sendMessage(convId, userId, msg) {
     throw new Error("FORBIDDEN");
   }
 
+  const { buyer_id, seller_id } = allowed.rows[0];
+
+  const receiverId =
+    buyer_id === userId ? seller_id : buyer_id;
+
   const insert = `
     INSERT INTO messages (conv_id, sender_id, msg)
     VALUES ($1, $2, $3)
-    RETURNING id, sender_id, msg, created_at, read_at
+    RETURNING id, conv_id, sender_id, msg, created_at, read_at
   `;
 
   const { rows } = await db.query(insert, [convId, userId, msg]);
 
-  return rows[0];
+  await db.query(
+    `
+      UPDATE conversations
+      SET updated_at = NOW(),
+          last_message_id = $2
+      WHERE id = $1
+    `,
+    [convId, rows[0].id]
+  );
+
+  return {
+    message: rows[0],
+    receiverId,
+  };
 }
