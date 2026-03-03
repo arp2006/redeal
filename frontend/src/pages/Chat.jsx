@@ -18,6 +18,28 @@ export default function ChatLayout() {
     }
   }
 
+  function updateConversationPreview(newMessage) {
+    setConversations(prev => {
+      const updated = prev.map(conv => {
+        if (conv.id === newMessage.conv_id) {
+          return {
+            ...conv,
+            last_message: newMessage.msg,
+            last_sender_id: newMessage.sender_id,
+            updated_at: newMessage.created_at,
+          };
+        }
+        return conv;
+      });
+
+      updated.sort((a, b) =>
+        new Date(b.updated_at) - new Date(a.updated_at)
+      );
+
+      return updated;
+    });
+  }
+
   useEffect(() => {
     if (!showChat) return;
     window.addEventListener("keydown", handleKeyDown);
@@ -32,8 +54,8 @@ export default function ChatLayout() {
         <aside className="flex w-full md:w-[350px] lg:w-[400px] flex-col border-r border-slate-200 bg-white">
           <ConversationList
             activeId={activeChatId}
-            setConversations = {setConversations}
-            conversations = {conversations}
+            setConversations={setConversations}
+            conversations={conversations}
             onSelect={(chatId, type, name, product) => {
               setActiveChatId(chatId);
               setShowChat(true);
@@ -47,6 +69,7 @@ export default function ChatLayout() {
         <section className={`${showChat ? "flex" : "hidden"} flex-1 flex-col bg-white`}>
           {activeChatId && (
             <ChatDetails
+              onMessageUpdate={updateConversationPreview}
               chatId={activeChatId}
               type={activeChatType}
               name={otherUser}

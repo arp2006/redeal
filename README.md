@@ -54,6 +54,7 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 * Production deployment
 * Notifications for chat
 * RateLimiter
+* Pagination
 * Proper email verification
 
 ---

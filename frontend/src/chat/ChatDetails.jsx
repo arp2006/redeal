@@ -4,7 +4,7 @@ import MessageList from "./MessageList";
 import { useNavigate } from "react-router-dom";
 import { getSocket } from "../socket";
 
-export default function ChatDetails({ chatId, onBack, type, name, item }) {
+export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, name, item }) {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -58,6 +58,7 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
     if (Number(message.conv_id) === Number(chatId)) {
       setMessages(prev => [...prev, message]);
     }
+    onMessageUpdate?.(message);
   }
 
 
@@ -113,6 +114,7 @@ export default function ChatDetails({ chatId, onBack, type, name, item }) {
         chatId={chatId}
         onMessageSent={(newMessage) => {
           setMessages((prev) => [...prev, newMessage]);
+          onMessageUpdate?.(newMessage);
         }}
       />
     </>

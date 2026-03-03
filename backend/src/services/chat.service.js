@@ -26,17 +26,24 @@ export async function getChats(userId, type) {
     whereClause = "c.seller_id = $1";
     userJoin = "JOIN user_data u ON u.id = c.buyer_id";
   }
+
   const query = `
     SELECT
       c.id,
       u.name,
       c.updated_at,
-      c.item_id
+      c.item_id,
+      i.title,
+      m.msg AS last_message,
+      m.sender_id AS last_sender_id
     FROM conversations c
     ${userJoin}
+    JOIN items i ON i.id = c.item_id
+    LEFT JOIN messages m ON m.id = c.last_message_id
     WHERE ${whereClause}
     ORDER BY c.updated_at DESC;
   `;
+
   const { rows } = await db.query(query, [userId]);
   return rows;
 }
