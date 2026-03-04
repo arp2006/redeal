@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import Logo from '../../assets/logo.svg';
+import Logo from '../../../assets/logo.svg';
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../../AuthContext";
 import AccDropdown from "./AccDropdown";
 
 function Header() {
