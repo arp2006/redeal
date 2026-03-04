@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import ConversationList from "../chat/ConversationList";
-import ChatDetails from "../chat/ChatDetails";
+import ConversationList from "../components/chat/ConversationList";
+import ChatDetails from "../components/chat/ChatDetails";
 import { AuthContext } from "../AuthContext";
 
 export default function ChatLayout() {

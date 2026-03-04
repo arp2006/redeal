@@ -121,25 +121,31 @@ project-root/
 │   └── queries.sql
 │
 ├── frontend/
-│   ├── node_modules/
+│   │
 │   ├── public/
 │   │   └── styles.css
 │   │
 │   ├── src/
+│   │   │
 │   │   ├── assets/
 │   │   │   ├── logo.png
 │   │   │   ├── logo.svg
 │   │   │   └── send.svg
 │   │   │
-│   │   ├── chat/
-│   │   │   ├── ChatDetails.jsx
-│   │   │   ├── ConversationItem.jsx
-│   │   │   ├── ConversationList.jsx
-│   │   │   ├── MessageBubble.jsx
-│   │   │   ├── MessageInput.jsx
-│   │   │   └── MessageList.jsx
-│   │   │
 │   │   ├── components/
+│   │   │   │
+│   │   │   ├── chat/
+│   │   │   │   ├── ChatDetails.jsx
+│   │   │   │   ├── ConversationItem.jsx
+│   │   │   │   ├── ConversationList.jsx
+│   │   │   │   ├── MessageBubble.jsx
+│   │   │   │   ├── MessageInput.jsx
+│   │   │   │   └── MessageList.jsx
+│   │   │   │
+│   │   │   ├── item/
+│   │   │   │   ├── ArchivedItem.jsx
+│   │   │   │   └── Item.jsx
+│   │   │   │
 │   │   │   ├── settings/
 │   │   │   │   ├── AccountSettings.jsx
 │   │   │   │   ├── AppearanceSettings.jsx
@@ -147,14 +153,17 @@ project-root/
 │   │   │   │   ├── Settings.jsx
 │   │   │   │   └── SettingsSidebar.jsx
 │   │   │   │
-│   │   │   ├── AccDropdown.jsx
-│   │   │   ├── ArchivedItem.jsx
-│   │   │   ├── Carousel.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── FormattedDateTime.jsx
-│   │   │   ├── Header.jsx
-│   │   │   ├── Item.jsx
-│   │   │   └── Sidebar.jsx
+│   │   │   ├── layout/
+│   │   │   │   ├── Header.jsx
+│   │   │   │   ├── AccDropdown.jsx
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   └── Sidebar.jsx
+│   │   │   │
+│   │   │   ├── ui/
+│   │   │   │   └── Carousel.jsx
+│   │   │   │
+│   │   │   └── utils/
+│   │   │       └── FormattedDateTime.jsx
 │   │   │
 │   │   ├── pages/
 │   │   │   ├── AboutUs.jsx

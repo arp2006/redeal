@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import Item from "../components/Item";
-import ArchivedItem from "../components/ArchivedItem";
+import Item from "../components/item/Item";
+import ArchivedItem from "../components/item/ArchivedItem";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 

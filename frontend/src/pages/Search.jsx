@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Item from "../components/Item";
+import Item from "../components/item/Item";
 import { useSearchParams } from "react-router-dom";
 
 function Home() {

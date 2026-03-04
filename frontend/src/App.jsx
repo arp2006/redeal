@@ -8,7 +8,7 @@ import Product from "./pages/Product";
 import Create from "./pages/Create";
 import Account from "./pages/Account";
 import Success from "./pages/Success";
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/layout/Sidebar';
 import AboutUs from './pages/AboutUs';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';

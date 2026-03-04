@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Item from "../components/Item";
+import Item from "../components/item/Item";
 import { AuthContext } from "../AuthContext";
 
 function Profile() {
@@ -78,7 +78,7 @@ function Profile() {
                 Create Listing
               </span>
             </button> */}
-            { user.id == id &&
+            { user?.id === Number(id) &&
             <button 
               className="min-w-[140px] h-11 px-6 rounded-lg bg-white border border-slate-200 text-slate-700 font-bold cursor-pointer hover:bg-slate-50"
               onClick={() => navigate('/settings/account')}

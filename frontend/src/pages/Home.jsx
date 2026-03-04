@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import Item from "../components/Item";
+import Item from "../components/item/Item";
 import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 

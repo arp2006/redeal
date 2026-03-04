@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, useNavigate, redirect } from "react-router-dom";
-import Carousel from "../components/Carousel";
+import Carousel from "../components/ui/Carousel";
 import { AuthContext } from "../AuthContext";
 
 function Product() {

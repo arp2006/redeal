@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 import { useNavigate } from "react-router-dom";
-import { getSocket } from "../socket";
+import { getSocket } from "../../socket";
 
 export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, name, item }) {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../../AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function AccDropdown({ u }) {

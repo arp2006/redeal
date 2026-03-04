@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import MessageBubble from "./MessageBubble";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../../AuthContext";
 
 export default function MessageList({ messages, loading }) {
   const { user } = useContext(AuthContext);

@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../../AuthContext";
 
 export default function MessageInput({ chatId, onMessageSent }) {
   const [text, setText] = useState("");

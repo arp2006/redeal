@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function Item({ id, imgLink, product, price, location }) {  
-  // console.log(price);
   const navigate = useNavigate();
   return (
     <div className=" cursor-pointer flex flex-col gap-3 pb-3 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300" onClick={()=>navigate(`/product/${id}`)}>
