@@ -190,6 +190,7 @@ project-root/
 │
 ├── .gitignore
 └── README.md
+```
 ---
 
 ## Notes
