@@ -45,7 +45,6 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 
 * CSS layout breaks in some sections
 * Manage posts showing for both buying and selling
-* Latest chats dont jump to begining 
 
 ---
 
@@ -68,6 +67,7 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 * .ENV file not loading before config files
 * Welcome Email
 * Live chat implementation
+* Latest chats dont jump to begining 
 
 ## Project Structure
 ```
