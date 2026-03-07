@@ -6,7 +6,10 @@ export function initSocket(server) {
   if (io) return io; 
   io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: [
+        "http://localhost:5173",
+        "https://redeal-rust.vercel.app"
+      ],
       methods: ["GET", "POST"],
       credentials: true,
     },
