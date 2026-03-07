@@ -7,7 +7,7 @@ function AccountSettings() {
   const [name, setDisplayName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState("Update");
   const [original, setOriginal] = useState(null);
@@ -28,7 +28,7 @@ function AccountSettings() {
         throw new Error("Failed to fetch details");
       }
       const data = await response.json();
-      setBio(data.bio);
+      setBio(data?.bio || "");
       setDisplayName(data.name);
       setUsername(data.username);
       setOriginal({
