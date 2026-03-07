@@ -32,7 +32,7 @@ function AccountSettings() {
       setDisplayName(data.name);
       setUsername(data.username);
       setOriginal({
-        name: data.name,
+        name: data?.name || "",
         username: data.username,
         bio: data.bio || ""
       });
