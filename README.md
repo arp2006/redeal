@@ -7,6 +7,12 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 
 ---
 
+## Live Demo
+
+https://redeal-rust.vercel.app/
+
+---
+
 ## Tech Stack
 
 ### Frontend
@@ -24,7 +30,7 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 * bcrypt
 * Cloudinary
 * CORS
-* .ENV
+* dotenv
 * Socket.io
 
 ---
@@ -32,42 +38,44 @@ The app features **JWT-based authentication**, **protected routes**, and a **mod
 ## Features
 
 * User authentication (Register / Login / Logout)
-* JWT-protected routes
-* Live chat
-* User profiles and settings
-* Post creation, editing, and browsing
-* Responsive UI with Tailwind CSS
-* Welcome Email
+* JWT-protected API routes
+* Real-time messaging using Socket.io
+* Marketplace listings (create, edit, browse)
+* User profiles and account settings
+* Image uploads via Cloudinary
+* Responsive UI built with Tailwind CSS
 
 ---
 
 ## Known Issues
 
 * CSS layout breaks in some sections
+* Mobile Mode not working
+* Dark mode not working
 * Manage posts showing for both buying and selling
 
 ---
 
-## Future Improvements
+## Planned Improvements
 
-* Production deployment
-* Notifications for chat
-* RateLimiter
-* Pagination
-* Proper email verification
+* Chat notifications
+* API rate limiting
+* Pagination for listings and chats
+* Email verification system
+* Improved mobile responsiveness
 
 ---
 
-## Fixes / Improvements Implemented
+## Major Improvements Implemented
 
-* Split backend into routes/controllers/services 
-* Improved error handling
-* UI consistency fixes
-* Archived post details do not display correctly when clicked
-* .ENV file not loading before config files
-* Welcome Email
-* Live chat implementation
-* Latest chats dont jump to begining 
+* Refactored backend into routes / controllers / services architecture
+* Implemented centralized error handling
+* Fixed environment variable loading order
+* Implemented real-time chat with Socket.io
+* Added welcome email system
+* Improved UI consistency
+* Fixed conversation ordering in chat
+* Production deployment setup
 
 ## Project Structure
 ```
@@ -202,10 +210,65 @@ project-root/
 ```
 ---
 
+## Getting Started
+
+### Prerequisites
+
+Make sure you have installed:
+
+- Node.js (v18+ recommended)
+- PostgreSQL
+- npm
+
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/redeal.git
+cd redeal
+2. Backend Setup
+cd backend
+npm install
+```
+
+Create a .env file inside backend/:
+```
+PORT=3000
+DATABASE_URL=your_postgres_connection
+JWT_SECRET=your_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloud
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_secret
+RESEND_API_KEY=your_email_key
+```
+Start the backend server:
+```
+npm run dev
+```
+3. Frontend Setup
+
+Open another terminal:
+```
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend will run at:
+http://localhost:5173
+
+4. Database Setup
+
+Run the schema file to create tables:
+```
+psql -U youruser -d yourdb -f queries.sql
+```
+
 ## Notes
 
 * Frontend and backend are fully separated
-* Authentication state is handled using React Context
+* Authentication state is managed using React Context
 * Protected routes are enforced client-side and server-side
 * `temp/` is used for temporary files and uploads
 
