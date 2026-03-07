@@ -85,12 +85,12 @@ export async function register(data) {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    try {
-      await sendWelcomeEmail(email, name);
-    } 
-    catch (err) {
-      throw err;
-    }
+    // try {
+    //   await sendWelcomeEmail(email, name);
+    // } 
+    // catch (err) {
+    //   throw err;
+    // }
 
     return { user: { id: result.rows[0].id }, token };
   } catch (err) {

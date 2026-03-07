@@ -50,6 +50,7 @@ https://redeal-rust.vercel.app/
 ## Known Issues
 
 * CSS layout breaks in some sections
+* Chat is not real time in deployemmt (bug)
 * Mobile Mode not working
 * Dark mode not working
 * Manage posts showing for both buying and selling

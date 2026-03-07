@@ -97,7 +97,7 @@ function Register() {
                       </p>
                       <input
                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d171b] focus:outline-0 focus:ring-0 border border-[#cfdfe7] bg-slate-50 focus:border-[#cfdfe7] h-14 placeholder:text-[#4c809a] p-[15px] text-base font-normal leading-normal"
-                        placeholder="Full Name"
+                        placeholder="Username"
                         type="text"
                         name="username"
                         value={form.username}
