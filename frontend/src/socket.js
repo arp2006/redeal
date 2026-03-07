@@ -1,11 +1,11 @@
 import { io } from "socket.io-client";
-
+import { API } from "./config/api";
 let socket = null;
 
 export function connectSocket(userId) {
   if (socket) return; // prevent duplicate connections
 
-  socket = io("http://localhost:3000", {
+  socket = io(`${API}`, {
     query: { userId },
     transports: ["websocket"],
   });

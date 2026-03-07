@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+import { API } from "../config/api";
 
 function Create() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ function Create() {
     const formData = new FormData();
     images.forEach(img => formData.append("images", img));
 
-    const res = await fetch("http://localhost:3000/api/upload-images", {
+    const res = await fetch(`${API}/api/upload-images`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -76,7 +77,7 @@ function Create() {
       // console.log(payload);
 
       const token = localStorage.getItem("token");
-      const response = await fetch('http://localhost:3000/api/create', {
+      const response = await fetch(`${API}/api/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

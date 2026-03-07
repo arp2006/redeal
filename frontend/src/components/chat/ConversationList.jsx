@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ConversationItem from "./ConversationItem";
+import { API } from "../../config/api";
 
 export default function ConversationList({ onSelect, activeId, conversations, setConversations }) {
   const [loading, setLoading] = useState(false);
@@ -9,7 +10,7 @@ export default function ConversationList({ onSelect, activeId, conversations, se
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:3000/api/chats/${conversationType}`, {
+      const res = await fetch(`${API}/api/chats/${conversationType}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

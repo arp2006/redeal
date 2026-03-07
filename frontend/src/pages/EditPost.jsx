@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import { API } from "../config/api";
 
 function EditPost() {
   const { id } = useParams();
@@ -24,7 +25,7 @@ function EditPost() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:3000/api/items/${id}/edit`,
+        `${API}/api/items/${id}/edit`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -87,7 +88,7 @@ function EditPost() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:3000/api/items/${id}`,
+        `${API}/api/items/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -150,7 +151,7 @@ function EditPost() {
       if (images.length > 0) {
         const fd = new FormData();
         images.forEach(img => fd.append("images", img));
-        const up = await fetch("http://localhost:3000/api/upload-images", {
+        const up = await fetch(`${API}/api/upload-images`, {
           method: "POST",
           body: fd
         });
@@ -158,7 +159,7 @@ function EditPost() {
         imageUrls = data.imageUrls;
       }
       const res = await fetch(
-        `http://localhost:3000/api/items/${id}`,
+        `${API}/api/items/${id}`,
         {
           method: "PATCH",
           headers: {

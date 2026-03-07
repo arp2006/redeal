@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, useNavigate, redirect } from "react-router-dom";
 import Carousel from "../components/ui/Carousel";
 import { AuthContext } from "../AuthContext";
+import { API } from "../config/api";
 
 function Product() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Product() {
 
   const getInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/items/${id}?summary=false`, {
+      const response = await fetch(`${API}/api/items/${id}?summary=false`, {
         method: "GET",
         headers: { 'Content-Type': 'application/json' },
       });
@@ -41,7 +42,7 @@ function Product() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:3000/api/conversations/start", {
+      const res = await fetch(`${API}/api/conversations/start`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

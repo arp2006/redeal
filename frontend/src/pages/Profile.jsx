@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Item from "../components/item/Item";
 import { AuthContext } from "../AuthContext";
+import { API } from "../config/api";
 
 function Profile() {
   const navigate = useNavigate();
@@ -12,13 +13,13 @@ function Profile() {
   const { user } = useContext(AuthContext);
 
   const getInfo = async () => {
-    const res = await fetch(`http://localhost:3000/api/users/${id}`);
+    const res = await fetch(`${API}/api/users/${id}`);
     if (!res.ok) throw new Error("Profile fetch failed");
     return res.json();
   };
 
   const getPosts = async () => {
-    const res = await fetch(`http://localhost:3000/api/users/${id}/listings`);
+    const res = await fetch(`${API}/api/users/${id}/listings`);
     if (!res.ok) throw new Error("Posts fetch failed");
     return res.json();
   };

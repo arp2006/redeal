@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate, redirect } from "react-router-dom";
 import Carousel from "../components/ui/Carousel";
 import { AuthContext } from "../AuthContext";
 import FormattedDateTime from "../components/utils/FormattedDateTime";
+import { API } from "../config/api";
 
 function ArchivedPost() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function ArchivedPost() {
   const getInfo = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3000/api/archive/${id}`, {
+      const response = await fetch(`${API}/api/archive/${id}`, {
         method: "GET",
         headers: { 
           'Content-Type': 'application/json',

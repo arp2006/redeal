@@ -1,5 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../AuthContext";
+import { API } from "../../config/api";
 
 function AccountSettings() {
   const { user } = useContext(AuthContext);
@@ -18,7 +19,7 @@ function AccountSettings() {
         setError("Not authenticated");
         return;
       }
-      const response = await fetch("http://localhost:3000/api/details", {
+      const response = await fetch(`${API}/api/details`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +57,7 @@ function AccountSettings() {
       }
     setLoading(true);
       let payload = { name, username, bio };
-      const response = await fetch('http://localhost:3000/api/changedetails', {
+      const response = await fetch(`${API}/api/changedetails`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

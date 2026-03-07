@@ -3,6 +3,7 @@ import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 import { useNavigate } from "react-router-dom";
 import { getSocket } from "../../socket";
+import { API } from "../../config/api";
 
 export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, name, item }) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, nam
 
   async function getInfo() {
     try {
-      const response = await fetch(`http://localhost:3000/api/items/${item}?summary=true`, {
+      const response = await fetch(`${API}/api/items/${item}?summary=true`, {
         method: "GET",
         headers: { 'Content-Type': 'application/json' },
       });
@@ -29,7 +30,7 @@ export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, nam
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:3000/api/messages/${chatId}`, {
+      const res = await fetch(`${API}/api/messages/${chatId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

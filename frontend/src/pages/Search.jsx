@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Item from "../components/item/Item";
 import { useSearchParams } from "react-router-dom";
+import { API } from "../config/api";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -14,7 +15,7 @@ function Home() {
 
   const getPosts = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/search', {
+      const response = await fetch(`${API}/api/search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ searchQuery: query, location: location, minP: min, maxP: max, categories: categories }),

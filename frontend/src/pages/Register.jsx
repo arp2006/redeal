@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import { API } from "../config/api";
 
 function Register() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function Register() {
     }
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/api/register', {
+      const response = await fetch(`${API}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)

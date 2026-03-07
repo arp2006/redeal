@@ -3,6 +3,7 @@ import Logo from '../../../assets/logo.svg';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../AuthContext";
 import AccDropdown from "./AccDropdown";
+import { API } from "../../../config/api";
 
 function Header() {
   const { user, loading } = useContext(AuthContext);
@@ -22,7 +23,7 @@ function Header() {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
-      const response = await fetch("http://localhost:3000/api/info", {
+      const response = await fetch(`${API}/api/info`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,5 +1,6 @@
 import { React, useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../AuthContext";
+import { API } from "../../config/api";
 
 function SecuritySettings() {
   const { user } = useContext(AuthContext);
@@ -18,7 +19,7 @@ function SecuritySettings() {
         setError("Not authenticated");
         return;
       }
-      const response = await fetch("http://localhost:3000/api/details", {
+      const response = await fetch(`${API}/api/details`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +57,7 @@ function SecuritySettings() {
       }
       setLoading(true);
       const response = await fetch(
-        "http://localhost:3000/api/changepassword",
+        `${API}/api/changepassword`,
         {
           method: "PATCH",
           headers: {

@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../AuthContext";
+import { API } from "../../config/api";
 
 export default function MessageInput({ chatId, onMessageSent }) {
   const [text, setText] = useState("");
@@ -10,7 +11,7 @@ export default function MessageInput({ chatId, onMessageSent }) {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:3000/api/messages", {
+      const res = await fetch(`${API}/api/messages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

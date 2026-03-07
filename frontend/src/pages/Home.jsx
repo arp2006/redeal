@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Item from "../components/item/Item";
 import { useSearchParams } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import { API } from "../config/api";
 
 function Home() {
   const { user } = useContext(AuthContext);
@@ -12,11 +13,11 @@ function Home() {
   const max = searchParams.get('priceU');
   const categoriesStr = searchParams.get('categories');
   const categories = categoriesStr ? categoriesStr.split(',') : [];
-
+  
   const getPosts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch('http://localhost:3000/api/listings', {
+      const response = await fetch(`${API}/api/listings`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

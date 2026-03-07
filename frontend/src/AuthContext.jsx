@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { connectSocket, disconnectSocket } from "./socket";
+import { API } from "./config/api";
 
 export const AuthContext = createContext(null);
 
@@ -22,7 +23,7 @@ export function AuthProvider({ children }) {
       return;
     }
 
-    fetch("http://localhost:3000/api/me", {
+    fetch(`${API}/api/me`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => {

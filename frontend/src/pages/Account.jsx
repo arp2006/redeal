@@ -3,6 +3,7 @@ import Item from "../components/item/Item";
 import ArchivedItem from "../components/item/ArchivedItem";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import { API } from "../config/api"
 
 function Account() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Account() {
     const token = localStorage.getItem("token");
     if(!token) return;
     try {
-      const response = await fetch('http://localhost:3000/api/account-listings', {
+      const response = await fetch(`${API}/api/account-listings`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -25,7 +26,7 @@ function Account() {
       const postsData = await response.json();
       setPosts(postsData);
 
-      const response2 = await fetch('http://localhost:3000/api/archive', {
+      const response2 = await fetch(`${API}/api/archive`, {
         method: 'GET',
         headers: { 
           'Content-Type': 'application/json',
