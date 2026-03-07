@@ -50,7 +50,7 @@ export async function details(userId) {
     `,
     [userId]
   );
-  if (!res.rows.length) throw { status: 404, message: "User not found" };
+  if (res.rows.length==0) throw { status: 404, message: "User not found" };
   return res.rows[0];
 }
 
