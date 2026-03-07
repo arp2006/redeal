@@ -1,5 +1,3 @@
-import path from "path";
-import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import http from "http";
 import { initSocket } from "./socket.js";
