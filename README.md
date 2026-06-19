@@ -63,6 +63,7 @@ https://redeal-rust.vercel.app/
 * Pagination for listings and chats
 * Email verification system
 * Improved mobile responsiveness
+* Elasticsearch
 
 ---
 
