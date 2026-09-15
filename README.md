@@ -33,6 +33,11 @@ https://redeal-rust.vercel.app/
 * dotenv
 * Socket.io
 
+### DevOps & Containerization
+
+* Docker
+* Docker Compose
+
 ---
 
 ## Features
@@ -44,6 +49,7 @@ https://redeal-rust.vercel.app/
 * User profiles and account settings
 * Image uploads via Cloudinary
 * Responsive UI built with Tailwind CSS
+* Docker containerization for easy deployment
 
 ---
 
@@ -64,6 +70,7 @@ https://redeal-rust.vercel.app/
 * Email verification system
 * Improved mobile responsiveness
 * Elasticsearch
+* Jenkins (CI/CD pipeline)
 
 ---
 
@@ -77,13 +84,16 @@ https://redeal-rust.vercel.app/
 * Improved UI consistency
 * Fixed conversation ordering in chat
 * Production deployment setup
+* Docker containerization
+
+---
 
 ## Project Structure
+
 ```
 project-root/
 │
 ├── backend/
-│   ├── node_modules/
 │   ├── src/
 │   │   ├── config/
 │   │   │   ├── cloudinary.js
@@ -123,26 +133,23 @@ project-root/
 │   │   ├── server.js
 │   │   └── socket.js
 │   │
-│   ├── temp/
 │   ├── .env
+│   ├── Dockerfile
 │   ├── package.json
 │   ├── package-lock.json
-│   └── queries.sql
+│   └── querries.sql
 │
 ├── frontend/
-│   │
 │   ├── public/
 │   │   └── styles.css
 │   │
 │   ├── src/
-│   │   │
 │   │   ├── assets/
 │   │   │   ├── logo.png
 │   │   │   ├── logo.svg
 │   │   │   └── send.svg
 │   │   │
 │   │   ├── components/
-│   │   │   │
 │   │   │   ├── chat/
 │   │   │   │   ├── ChatDetails.jsx
 │   │   │   │   ├── ConversationItem.jsx
@@ -155,6 +162,12 @@ project-root/
 │   │   │   │   ├── ArchivedItem.jsx
 │   │   │   │   └── Item.jsx
 │   │   │   │
+│   │   │   ├── layout/
+│   │   │   │   ├── AccDropdown.jsx
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   ├── Header.jsx
+│   │   │   │   └── Sidebar.jsx
+│   │   │   │
 │   │   │   ├── settings/
 │   │   │   │   ├── AccountSettings.jsx
 │   │   │   │   ├── AppearanceSettings.jsx
@@ -162,17 +175,14 @@ project-root/
 │   │   │   │   ├── Settings.jsx
 │   │   │   │   └── SettingsSidebar.jsx
 │   │   │   │
-│   │   │   ├── layout/
-│   │   │   │   ├── Header.jsx
-│   │   │   │   ├── AccDropdown.jsx
-│   │   │   │   ├── Footer.jsx
-│   │   │   │   └── Sidebar.jsx
-│   │   │   │
 │   │   │   ├── ui/
 │   │   │   │   └── Carousel.jsx
 │   │   │   │
 │   │   │   └── utils/
 │   │   │       └── FormattedDateTime.jsx
+│   │   │
+│   │   ├── config/
+│   │   │   └── api.js
 │   │   │
 │   │   ├── pages/
 │   │   │   ├── AboutUs.jsx
@@ -204,11 +214,14 @@ project-root/
 │   ├── index.html
 │   ├── package.json
 │   ├── package-lock.json
+│   ├── vercel.json
 │   └── vite.config.js
 │
 ├── .gitignore
+├── docker-compose.yml
 └── README.md
 ```
+
 ---
 
 ## Getting Started
@@ -217,9 +230,9 @@ project-root/
 
 Make sure you have installed:
 
-- Node.js (v18+ recommended)
-- PostgreSQL
-- npm
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) *(Recommended for containerized setup)*
+- [Node.js](https://nodejs.org/) (v18+ recommended) & npm *(for manual local setup)*
+- [PostgreSQL](https://www.postgresql.org/) database *(for manual local setup)*
 
 ---
 
@@ -228,43 +241,97 @@ Make sure you have installed:
 ```bash
 git clone https://github.com/yourusername/redeal.git
 cd redeal
-2. Backend Setup
+```
+
+---
+
+### Option A: Running with Docker (Recommended)
+
+1. **Configure Environment Variables**
+
+   Create a `.env` file inside `backend/`:
+   ```env
+   PORT=3000
+   DATABASE_URL=your_postgres_connection_string
+   JWT_SECRET=your_secret_key
+   CLOUDINARY_CLOUD_NAME=your_cloud
+   CLOUDINARY_API_KEY=your_key
+   CLOUDINARY_API_SECRET=your_secret
+   RESEND_API_KEY=your_email_key
+   ```
+
+2. **Initialize Database**
+
+   Execute `backend/querries.sql` against your PostgreSQL database to initialize tables:
+   ```bash
+   psql -U youruser -d yourdb -f backend/querries.sql
+   ```
+
+3. **Build and Run Backend with Docker Compose**
+
+   From the project root:
+   ```bash
+   docker compose up --build -d
+   ```
+   The backend API will be available at `http://localhost:3000`.
+
+4. **Run the Frontend**
+
+   In a separate terminal:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+   The frontend will be running at `http://localhost:5173`.
+
+---
+
+### Option B: Running Locally (Manual Setup)
+
+#### 1. Database Setup
+
+Run the schema file to create the tables in your PostgreSQL instance:
+```bash
+psql -U youruser -d yourdb -f backend/querries.sql
+```
+
+#### 2. Backend Setup
+
+Navigate to the `backend/` directory:
+```bash
 cd backend
 npm install
 ```
 
-Create a .env file inside backend/:
-```
+Create a `.env` file inside `backend/`:
+```env
 PORT=3000
-DATABASE_URL=your_postgres_connection
+DATABASE_URL=your_postgres_connection_string
 JWT_SECRET=your_secret_key
 CLOUDINARY_CLOUD_NAME=your_cloud
 CLOUDINARY_API_KEY=your_key
 CLOUDINARY_API_SECRET=your_secret
 RESEND_API_KEY=your_email_key
 ```
-Start the backend server:
-```
+
+Start the backend development server:
+```bash
 npm run dev
 ```
-3. Frontend Setup
 
-Open another terminal:
-```
+#### 3. Frontend Setup
+
+In another terminal, navigate to the `frontend/` directory:
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Frontend will run at:
-http://localhost:5173
+Frontend will run at: `http://localhost:5173`
 
-4. Database Setup
-
-Run the schema file to create tables:
-```
-psql -U youruser -d yourdb -f queries.sql
-```
+---
 
 ## Notes
 
@@ -272,6 +339,3 @@ psql -U youruser -d yourdb -f queries.sql
 * Authentication state is managed using React Context
 * Protected routes are enforced client-side and server-side
 * `temp/` is used for temporary files and uploads
-
----
-
