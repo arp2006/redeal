@@ -6,8 +6,6 @@ import { API } from "../config/api";
 function Login() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
-  const id = user?.id;
-  // console.log(user);
   
   const [form, setForm] = useState({
     email: '',

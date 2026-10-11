@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../AuthContext";
+import React from "react";
+// import { AuthContext } from "../../AuthContext";
 import Contact from "../../pages/Contact";
 import AccountSettings from "./AccountSettings";
 import SecuritySettings from "./SecuritySettings";
@@ -9,11 +9,11 @@ import NotFound from "../../pages/NotFound"
 
 function Settings({ pg }) {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
-  const toggleDarkMode = () => {
-    document.documentElement.classList.toggle("dark");
-    setDarkMode(!darkMode);
-  };
+  // const [darkMode, setDarkMode] = useState(false);
+  // const toggleDarkMode = () => {
+  //   document.documentElement.classList.toggle("dark");
+  //   setDarkMode(!darkMode);
+  // };
   const allowed = ["account", "security", "support", "appearance"];
   if (!allowed.includes(pg)) {
     return <NotFound />;

@@ -12,36 +12,36 @@ function Profile() {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
 
-  const getInfo = async () => {
-    const res = await fetch(`${API}/api/users/${id}`);
-    if (!res.ok) throw new Error("Profile fetch failed");
-    return res.json();
-  };
-
-  const getPosts = async () => {
-    const res = await fetch(`${API}/api/users/${id}/listings`);
-    if (!res.ok) throw new Error("Posts fetch failed");
-    return res.json();
-  };
-
-  const load = async () => {
-    try {
-      const [profileData, postsData] = await Promise.all([
-        getInfo(),
-        getPosts(),
-      ]);
-      setProfile(profileData);
-      setPosts(postsData);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getInfo = async () => {
+      const res = await fetch(`${API}/api/users/${id}`);
+      if (!res.ok) throw new Error("Profile fetch failed");
+      return res.json();
+    };
+
+    const getPosts = async () => {
+      const res = await fetch(`${API}/api/users/${id}/listings`);
+      if (!res.ok) throw new Error("Posts fetch failed");
+      return res.json();
+    };
+
+    const load = async () => {
+      try {
+        const [profileData, postsData] = await Promise.all([
+          getInfo(),
+          getPosts(),
+        ]);
+        setProfile(profileData);
+        setPosts(postsData);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     load();
-  }, [id])
+  }, [id]);
 
   if (loading) {
     return <p className="text-center mt-10">Loading…</p>;

@@ -38,10 +38,13 @@ function Create() {
     if (!user) {
       navigate("/login");
     }
+  }, [user, navigate]);
+
+  useEffect(() => {
     return () => {
       imagePreviews.forEach(url => URL.revokeObjectURL(url));
     };
-  }, [imagePreviews, navigate]);
+  }, [imagePreviews]);
 
   const uploadImages = async () => {
     if (images.length === 0) return [];

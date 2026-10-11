@@ -20,50 +20,56 @@ function EditPost() {
 
   /* ---------- fetch ---------- */
 
-  const fetchPost = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      const res = await fetch(
-        `${API}/api/items/${id}/edit`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      if (res.status === 401 || res.status === 403) {
-        navigate("/");
-        return;
-      }
-
-      if (!res.ok) throw new Error();
-
-      const data = await res.json();
-
-      const mapped = {
-        title: data.title,
-        description: data.description,
-        price: data.price,
-        location: data.location,
-        category_id: data.category_id,
-        images: data.images
-      };
-
-      setPost(mapped);
-      setOriginal(mapped);
-    } catch {
-      setError("Failed to load post");
-    } finally {
-      setPageLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!user) {
       navigate("/login");
       return;
     }
+
+    const fetchPost = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(
+          `${API}/api/items/${id}/edit`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (res.status === 401 || res.status === 403) {
+          navigate("/");
+          return;
+        }
+
+        if (!res.ok) throw new Error();
+
+        const data = await res.json();
+
+        const mapped = {
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          location: data.location,
+          category_id: data.category_id,
+          images: data.images
+        };
+
+        setPost(mapped);
+        setOriginal(mapped);
+      } catch {
+        setError("Failed to load post");
+      } finally {
+        setPageLoading(false);
+      }
+    };
+
     fetchPost();
-    return () => previews.forEach(URL.revokeObjectURL);
-  }, []);
+  }, [id, user, navigate]);
+
+  useEffect(() => {
+    return () => {
+      previews.forEach(url => URL.revokeObjectURL(url));
+    };
+  }, [previews]);
 
   /* ---------- handlers ---------- */
 

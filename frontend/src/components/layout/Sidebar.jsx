@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function Sidebar() {
-  // const navigate = useNavigate();
   const [filters, setFilters] = useState({
     location: '',
     categories: [],
@@ -16,10 +15,6 @@ function Sidebar() {
     setFilters({ ...filters, location: e.target.value });
   };
 
-  const handleChange = (e) => {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
-  };
-
   const handleCategoryChange = (e) => {
     const { id, checked } = e.target;
     setFilters((prev) => {
@@ -31,10 +26,6 @@ function Sidebar() {
       }
     });
   };
-
-  const loag = () => {
-    console.log(filters);
-  }
 
   const clearFilters = () => {
     setFilters({

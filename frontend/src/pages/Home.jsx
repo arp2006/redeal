@@ -12,28 +12,27 @@ function Home() {
   const min = searchParams.get('priceL');
   const max = searchParams.get('priceU');
   const categoriesStr = searchParams.get('categories');
-  const categories = categoriesStr ? categoriesStr.split(',') : [];
-  
-  const getPosts = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`${API}/api/listings`, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ location, minP: min, maxP: max, categories }),
-      });
-      if (!response.ok) throw new Error('Failed to fetch posts');
-      const postsData = await response.json();
-      setPosts(postsData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const categories = categoriesStr ? categoriesStr.split(',') : [];
+        const response = await fetch(`${API}/api/listings`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ location, minP: min, maxP: max, categories }),
+        });
+        if (!response.ok) throw new Error('Failed to fetch posts');
+        const postsData = await response.json();
+        setPosts(postsData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     getPosts(); 
   }, [user, location, min, max, categoriesStr]);
 

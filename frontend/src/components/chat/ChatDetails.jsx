@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 import { useNavigate } from "react-router-dom";
@@ -10,59 +10,11 @@ export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, nam
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [postInfo, setPostInfo] = useState({});
+  const onMessageUpdateRef = useRef(onMessageUpdate);
 
-  async function getInfo() {
-    try {
-      const response = await fetch(`${API}/api/items/${item}?summary=true`, {
-        method: "GET",
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (!response.ok) throw new Error('Failed to fetch post');
-      const pInfo = await response.json();
-      setPostInfo(pInfo);
-    }
-    catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function fetchMessages() {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API}/api/messages/${chatId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) throw new Error("Failed to fetch messages");
-
-      const data = await res.json();
-      setMessages(data);
-    } catch (err) {
-      console.error("Failed to load messages", err);
-      setMessages([]);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function loadChat() {
-    setLoading(true);
-    await Promise.all([fetchMessages(), getInfo()]);
-    setLoading(false);
-  }
-
-
-  function handleNewMessage(message) {
-    if (Number(message.conv_id) === Number(chatId)) {
-      setMessages(prev => [...prev, message]);
-    }
-    onMessageUpdate?.(message);
-  }
-
-
+  useEffect(() => {
+    onMessageUpdateRef.current = onMessageUpdate;
+  });
 
   useEffect(() => {
     if (!chatId) return;
@@ -70,7 +22,55 @@ export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, nam
     setMessages([]);
     setLoading(true);
 
+    async function getInfo() {
+      if (!item) return;
+      try {
+        const response = await fetch(`${API}/api/items/${item}?summary=true`, {
+          method: "GET",
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!response.ok) throw new Error('Failed to fetch post');
+        const pInfo = await response.json();
+        setPostInfo(pInfo);
+      }
+      catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function fetchMessages() {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`${API}/api/messages/${chatId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch messages");
+
+        const data = await res.json();
+        setMessages(data);
+      } catch (err) {
+        console.error("Failed to load messages", err);
+        setMessages([]);
+      }
+    }
+
+    async function loadChat() {
+      setLoading(true);
+      await Promise.all([fetchMessages(), getInfo()]);
+      setLoading(false);
+    }
+
     loadChat();
+
+    function handleNewMessage(message) {
+      if (Number(message.conv_id) === Number(chatId)) {
+        setMessages(prev => [...prev, message]);
+      }
+      onMessageUpdateRef.current?.(message);
+    }
 
     const socket = getSocket();
     if (!socket) return;
@@ -80,7 +80,7 @@ export default function ChatDetails({ onMessageUpdate, chatId, onBack, type, nam
       socket.off("new_message", handleNewMessage);
     };
 
-  }, [chatId]);
+  }, [chatId, item]);
 
   return (
     <>

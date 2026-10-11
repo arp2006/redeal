@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate, redirect } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Carousel from "../components/ui/Carousel";
 import { AuthContext } from "../AuthContext";
 import { API } from "../config/api";
@@ -8,25 +8,7 @@ function Product() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [post, setPost] = useState({});
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { user, loading } = useContext(AuthContext);
-
-  const getInfo = async () => {
-    try {
-      const response = await fetch(`${API}/api/items/${id}?summary=false`, {
-        method: "GET",
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (!response.ok) throw new Error('Failed to fetch post');
-      const postData = await response.json();
-      setPost(postData);
-    }
-    catch {
-      console.error(error);
-    }
-  }
 
   const handleStartChat = async () => {
     if (!user) {
@@ -70,8 +52,24 @@ function Product() {
 
   useEffect(() => {
     if (loading) return;
+
+    const getInfo = async () => {
+      try {
+        const response = await fetch(`${API}/api/items/${id}?summary=false`, {
+          method: "GET",
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!response.ok) throw new Error('Failed to fetch post');
+        const postData = await response.json();
+        setPost(postData);
+      }
+      catch (err) {
+        console.error(err);
+      }
+    };
+
     getInfo();
-  }, [loading]);
+  }, [id, loading]);
 
   return (
     <div>

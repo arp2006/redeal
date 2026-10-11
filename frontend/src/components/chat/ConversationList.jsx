@@ -6,34 +6,33 @@ export default function ConversationList({ onSelect, activeId, conversations, se
   const [loading, setLoading] = useState(false);
   const [conversationType, setConversationType] = useState("buying");
 
-  async function fetchConversations() {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API}/api/chats/${conversationType}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) throw new Error("Failed to fetch chats");
-
-      const data = await res.json();
-      setConversations(data);
-      
-    } 
-    catch (err) {
-      console.error("Failed to load conversations", err);
-      setConversations([]);
-    } 
-    finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    async function fetchConversations() {
+      setLoading(true);
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`${API}/api/chats/${conversationType}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch chats");
+
+        const data = await res.json();
+        setConversations(data);
+      } 
+      catch (err) {
+        console.error("Failed to load conversations", err);
+        setConversations([]);
+      } 
+      finally {
+        setLoading(false);
+      }
+    }
+
     fetchConversations();
-  }, [conversationType]);
+  }, [conversationType, setConversations]);
 
   return (
     <div className="flex flex-col h-full">

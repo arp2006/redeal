@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContext";
 
 function Success() {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [countdown, setCountdown] = useState(5);
-  const id = localStorage.getItem('userId');
 
   useEffect(() => {
     if (countdown > 0) {
-      const id = setTimeout(() => setCountdown(countdown - 1), 1000);
-      return () => clearTimeout(id);
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      return () => clearTimeout(timer);
     } else {
       navigate("/");
     }
   }, [countdown, navigate]);
 
-    useEffect(()=>{
-      if (id==8) {
-        navigate("/", { replace: true });
-      }
-    }, [ navigate]);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   return (
     <div

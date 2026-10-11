@@ -1,12 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Item from "../components/item/Item";
 import ArchivedItem from "../components/item/ArchivedItem";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../AuthContext";
+// import { AuthContext } from "../AuthContext";
 import { API } from "../config/api"
 
 function Account() {
-  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [oldPosts, setOldPosts] = useState([]);
   // console.log("ACCOUNT PAGE:", { user, loading });

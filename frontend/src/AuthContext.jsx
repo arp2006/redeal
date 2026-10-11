@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import { connectSocket, disconnectSocket } from "./socket";
 import { API } from "./config/api";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
@@ -38,6 +39,7 @@ export function AuthProvider({ children }) {
         setLoading(false);
       })
       .catch(err => {
+        console.error(err);
         logout();
       });
   }, []);
