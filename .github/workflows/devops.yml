@@ -1,0 +1,37 @@
+
+name: ReDeal DevOps Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build and lint frontend
+        working-directory: frontend
+        run: |
+          npm install
+          npm run lint
+          npm run build
+
+      - name: Validate backend
+        working-directory: backend
+        run: |
+          npm install
+          node --check src/server.js
+
+      - name: Build Docker image
+        run: docker build -t redeal-backend:ci ./backend
