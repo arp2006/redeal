@@ -9,8 +9,6 @@ function Product() {
   const { id } = useParams();
   const [post, setPost] = useState({});
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { user, loading } = useContext(AuthContext);
 
   const getInfo = async () => {
@@ -23,8 +21,9 @@ function Product() {
       const postData = await response.json();
       setPost(postData);
     }
-    catch {
-      console.error(error);
+    catch (err) {
+      console.error(err);
+      setError("Unable to load this listing.");
     }
   }
 
@@ -74,7 +73,7 @@ function Product() {
   }, [loading]);
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-6xl">
       <div className="flex flex-wrap gap-2 mb-6">
         <a className="text-[#4c809a] text-sm font-medium leading-normal" href="/">
           Home
@@ -85,10 +84,10 @@ function Product() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {error ? <p className="rounded-lg bg-red-50 p-4 text-red-700">{error}</p> : <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="md:col-span-2">
 
-          <Carousel images={post.images} />
+          <Carousel images={post.images || []} />
 
           <div className="mt-8">
             <h1 className="text-[#0d171b] tracking-light text-[32px] font-bold leading-tight">
@@ -105,9 +104,9 @@ function Product() {
                 </span>
               </div>
             </div>
-            <div className="mt-6 prose prose-slate w-full text-[#374151] min-w-[1200px]">
+            <p className="mt-6 whitespace-pre-wrap break-words text-[#374151]">
               {post.description}
-            </div>
+            </p>
             <div className="mt-6 flex items-center gap-4">
               <button className="flex items-center gap-2 text-slate-600 hover:text-[#0d171b] text-sm font-medium">
                 <span className="material-symbols-outlined text-lg">flag</span> Report Item
@@ -117,9 +116,9 @@ function Product() {
         </div>
 
         {/* Sidebar or related content on right */}
-        <div className="md:col-span-1 space-y-6">
-          <div className="bg-white p-6 rounded-lg border border-slate-200">
-            <h2 className="text-[#0d171b] tracking-light text-[36px] font-bold leading-tight"> ₹{[post.price]}</h2>
+        <div className="space-y-6 lg:col-span-1">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-3xl font-bold leading-tight text-[#0d171b]">₹{post.price}</h2>
             <div className="mt-4 flex flex-col gap-3">
               <button
                 onClick={handleStartChat} 
@@ -135,7 +134,7 @@ function Product() {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg border border-slate-200">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="text-[#0d171b] text-lg font-bold">Seller Information</h3>
 
             <div className="mt-4 flex items-center justify-between">
@@ -152,7 +151,7 @@ function Product() {
           </div>
 
         </div>
-      </div>
+      </div>}
 
     </div>
   );

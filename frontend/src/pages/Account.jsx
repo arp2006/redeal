@@ -47,14 +47,15 @@ function Account() {
 
 
   return (
-    <div className="relative min-h-screen w-full">
-      <p className="text-2xl font-extrabold text-[#3498DB] uppercase tracking-wide mb-4 pl-4 ">
+    <div className="mx-auto w-full max-w-screen-2xl space-y-10">
+      <section>
+      <p className="mb-4 text-2xl font-extrabold uppercase tracking-wide text-[#3498DB]">
         Active Posts
       </p>
       <div className="pt-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pl-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {posts.length === 0 ? (
-            <p>No posts available.</p>
+            <p className="col-span-full rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">No active posts yet.</p>
           ) : (
             posts.map(post => (
               <Item
@@ -69,12 +70,14 @@ function Account() {
           )}
         </div>
       </div>
-      <p className="text-2xl font-extrabold text-[#3498DB] uppercase tracking-wide mb-4 pl-4 pt-4">
+      </section>
+      <section>
+      <p className="mb-4 text-2xl font-extrabold uppercase tracking-wide text-[#3498DB]">
         Archive
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pl-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {oldPosts.length === 0 ? (
-            <p>No posts available.</p>
+            <p className="col-span-full rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">No archived posts yet.</p>
           ) : (
             oldPosts.map(post => (
               <ArchivedItem
@@ -88,6 +91,7 @@ function Account() {
             ))
           )}
         </div>
+      </section>
     </div>
   );
 }

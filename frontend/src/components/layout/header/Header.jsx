@@ -44,16 +44,17 @@ function Header() {
   }, [user]);
 
   return (
-    <header className="fixed w-full top-0 left-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7eff3] px-10 py-3 bg-white">
-      <div className="cursor-pointer flex items-center gap-4 text-[#0d171b]" onClick={() => navigate("/")}>
-        <div className="size-4">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-10">
+      <button type="button" aria-label="Go to homepage" className="flex shrink-0 items-center gap-3 text-[#0d171b]" onClick={() => navigate("/")}>
+        <div className="size-6">
           <svg width="40px" height="40px" viewBox="3 9 26 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4.99255 12.9841C4.44027 12.9841 3.99255 13.4318 3.99255 13.9841C3.99255 14.3415 4.18004 14.6551 4.46202 14.8319L7.14964 17.5195C7.54016 17.9101 8.17333 17.9101 8.56385 17.5195C8.95438 17.129 8.95438 16.4958 8.56385 16.1053L7.44263 14.9841H14.9926C15.5448 14.9841 15.9926 14.5364 15.9926 13.9841C15.9926 13.4318 15.5448 12.9841 14.9926 12.9841L5.042 12.9841C5.03288 12.984 5.02376 12.984 5.01464 12.9841H4.99255Z" fill="#3498db"></path> <path d="M19.0074 11.0159C19.5597 11.0159 20.0074 10.5682 20.0074 10.0159C20.0074 9.6585 19.82 9.3449 19.538 9.16807L16.8504 6.48045C16.4598 6.08993 15.8267 6.08993 15.4361 6.48045C15.0456 6.87098 15.0456 7.50414 15.4361 7.89467L16.5574 9.01589L9.00745 9.01589C8.45516 9.01589 8.00745 9.46361 8.00745 10.0159C8.00745 10.5682 8.45516 11.0159 9.00745 11.0159L18.958 11.0159C18.9671 11.016 18.9762 11.016 18.9854 11.0159H19.0074Z" fill="#3498db"></path> </g></svg>
         </div>
         <h2 className="text-[#0d171b] text-lg font-bold leading-tight tracking-[-0.015em]">
           ReDeal
         </h2>
-      </div>
-      <div className="flex flex-1 items-center justify-center px-8">
+      </button>
+      <div className="hidden flex-1 items-center justify-center px-4 md:flex">
         <form onSubmit={handleSearchSubmit} className="flex flex-col min-w-40 h-10 w-full max-w-[480px]">
           <div className="flex w-full flex-1 items-stretch rounded-lg h-full">
             <div className="text-[#4c809a] flex border border-[#cfdfe7] bg-slate-50 items-center justify-center pl-3 rounded-l-lg border-r-0">
@@ -76,11 +77,11 @@ function Header() {
           </div>
         </form>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex shrink-0 items-center gap-3">
         {loading ? null : user ? (
           <>
-            <Link to="/create" className="text-[#0d171b] text-sm font-medium leading-normal">Sell an Item</Link>
-            <Link to="/chat" className="text-[#0d171b] text-sm font-medium leading-normal">Chat</Link>
+            <Link to="/create" className="hidden text-sm font-medium text-[#0d171b] hover:text-[#3498DB] sm:block">Sell an Item</Link>
+            <Link to="/chat" className="text-sm font-medium text-[#0d171b] hover:text-[#3498DB]">Chat</Link>
             <AccDropdown u={userInfo} />
           </>
         ) : (
@@ -99,7 +100,7 @@ function Header() {
             </button>
           </div>
         )}
-      </div>
+      </div></div>
     </header>
   );
 }

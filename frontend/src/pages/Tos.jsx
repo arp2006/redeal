@@ -2,8 +2,8 @@ import React from "react";
 
 function Tos() {
   return (
-    <div className="p-8 max-w-4xl mx-auto text-gray-800">
-      <h1 className="text-3xl font-semibold mb-4">Terms of Service</h1>
+    <article className="mx-auto w-full max-w-3xl rounded-xl border border-slate-200 bg-white p-6 text-slate-700 shadow-sm sm:p-8">
+      <h1 className="mb-4 text-3xl font-bold text-slate-900">Terms of Service</h1>
       <p className="mb-3">
         By using ReDeal, you agree to these terms. Users must provide accurate
         information and maintain respect within the platform.
@@ -20,7 +20,7 @@ function Tos() {
         Continued use of our services implies acceptance of updated terms and
         policies available on this page.
       </p>
-    </div>
+    </article>
   );
 }
 

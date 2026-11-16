@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 function Sidebar() {
   // const navigate = useNavigate();
@@ -32,17 +32,15 @@ function Sidebar() {
     });
   };
 
-  const loag = () => {
-    console.log(filters);
-  }
-
   const clearFilters = () => {
-    setFilters({
+    const cleared = {
       location: '',
       categories: [],
       priceL: '',
       priceU: '',
-    });
+    };
+    setFilters(cleared);
+    setSearchParams(query ? { query } : {});
   };
 
   const applyFilters = () => {
@@ -67,8 +65,8 @@ function Sidebar() {
   ];
 
   return (
-    <aside className="w-1/4 pr-8">
-      <div className="bg-white p-5 rounded-xl shadow border border-slate-100">
+    <aside className="hidden w-64 shrink-0 lg:block">
+      <div className="sticky top-24 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
         <h3 className="text-lg font-bold text-[#0d171b] mb-4">Filters</h3>
         <div className="space-y-6">
           <div>
@@ -127,11 +125,21 @@ function Sidebar() {
                 className="h-10 px-3 border border-slate-300 rounded-md text-sm
                focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Min"
+                name="priceL"
+                type="number"
+                min="0"
+                value={filters.priceL}
+                onChange={handleChange}
               />
               <input
                 className="h-10 px-3 border border-slate-300 rounded-md text-sm
                focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Max"
+                name="priceU"
+                type="number"
+                min="0"
+                value={filters.priceU}
+                onChange={handleChange}
               />
             </div>
 

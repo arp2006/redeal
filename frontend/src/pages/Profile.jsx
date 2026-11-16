@@ -44,15 +44,15 @@ function Profile() {
   }, [id])
 
   if (loading) {
-    return <p className="text-center mt-10">Loading…</p>;
+    return <p className="w-full pt-10 text-center text-slate-500">Loading…</p>;
   }
 
   if (!profile) {
-    return <p className="text-center mt-10">User not found</p>;
+    return <p className="w-full pt-10 text-center text-slate-500">User not found</p>;
   }
 
   return (
-    <div className="max-w-[1200px] mx-auto px-4 lg:px-40 py-8">
+    <div className="mx-auto w-full max-w-6xl py-2">
       {/* Header */}
       <div className="flex flex-col mb-8">
         <div className="flex w-full flex-col gap-6 md:flex-row md:justify-between md:items-center">
@@ -114,11 +114,11 @@ function Profile() {
       </div>
 
       {/* Listings grid placeholder */}
-      <p className="text-2xl font-extrabold text-[#3498DB] uppercase tracking-wide mb-4 pl-4 ">
+      <p className="mb-4 text-2xl font-extrabold uppercase tracking-wide text-[#3498DB]">
         Active Posts
       </p>
       <div className="pt-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pl-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {posts.length === 0 ? (
             <p>No posts available.</p>
           ) : (

@@ -49,9 +49,9 @@ export default function ChatLayout() {
   }, [showChat]);
 
   return (
-    <div className="bg-background-light font-display text-slate-900 mx-[35rem] w-full h-[58rem] overflow-hidden border border-slate-200 rounded-lg">
+    <div className="mx-auto h-[calc(100vh-10rem)] min-h-[520px] w-full max-w-6xl overflow-hidden rounded-xl border border-slate-200 bg-white text-slate-900 shadow-sm">
       <div className="flex h-full">
-        <aside className="flex w-full md:w-[350px] lg:w-[400px] flex-col border-r border-slate-200 bg-white">
+        <aside className={`${showChat ? "hidden md:flex" : "flex"} w-full md:w-[350px] lg:w-[400px] flex-col border-r border-slate-200 bg-white`}>
           <ConversationList
             activeId={activeChatId}
             setConversations={setConversations}

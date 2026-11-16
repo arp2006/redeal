@@ -38,10 +38,10 @@ function Home() {
   }, [user, location, min, max, categoriesStr]);
 
   return (
-    <div className="w-3/4">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,0.2fr))] gap-4 p-2.5 pt-0">
+    <div className="min-w-0 flex-1">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {posts.length === 0 ? (
-          <p>No posts available.</p>
+          <p className="col-span-full rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">No posts available.</p>
         ) : (
           posts.map(post => (
             <Item

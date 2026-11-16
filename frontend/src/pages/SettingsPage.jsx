@@ -6,8 +6,8 @@ import { useParams } from "react-router-dom";
 function SettingsPage(){
   const { page } = useParams();
   return(
-    <div class="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-10 py-8">
-      <div class="flex flex-col md:flex-row gap-8">
+    <div className="mx-auto w-full max-w-7xl py-2">
+      <div className="flex flex-col gap-8 md:flex-row">
         <SettingsSidebar />
         <Settings pg={page}/>
       </div>

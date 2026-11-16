@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom";
 function ArchivedItem({ id, imgLink, product, price, location }) {  
   const navigate = useNavigate();
   return (
-    <div className=" cursor-pointer flex flex-col gap-3 pb-3 bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300" onClick={()=>navigate(`/archive/${id}`)}>
+    <article className="group cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md" onClick={()=>navigate(`/archive/${id}`)}>
       <div
         className="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover"
-        data-alt={`Image of ₹{product}`}
-        style={{ backgroundImage: `url(${imgLink})` }}
+        aria-label={`Image of ${product}`}
+        style={{ backgroundImage: imgLink ? `url(${imgLink})` : undefined }}
       ></div>
-      <div className="p-3">
-        <p className="text-[#0d171b] text-base font-medium leading-normal">{product}</p>
-        <p className="text-[#333] text-base font-bold leading-normal">{price}</p>
-        <p className="text-[#4c809a] text-sm font-normal leading-normal">{location}</p>
+      <div className="space-y-1 p-4">
+        <p className="truncate text-base font-semibold text-[#0d171b]">{product}</p>
+        <p className="text-base font-bold text-[#0d171b]">{price}</p>
+        <p className="truncate text-sm text-[#4c809a]">{location}</p>
       </div>
-    </div>
+    </article>
   );
 }
 

@@ -51,15 +51,8 @@ function Login() {
   }, [user, navigate]);
 
   return (
-    <div
-      className="relative flex h-auto min-h-screen w-full flex-col bg-slate-50 group/design-root overflow-x-hidden"
-      style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif' }}
-    >
-      <div className="layout-container flex h-full grow flex-col">
-        <div className="px-40 flex flex-1 justify-center py-5">
-          <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <div className="flex flex-col items-center mt-10">
-              <div className="w-full max-w-md">
+    <div className="mx-auto flex w-full max-w-md flex-1 items-center py-6 sm:py-10">
+      <div className="w-full rounded-xl border border-slate-200 bg-white p-2 shadow-sm sm:p-4">
                 <div className="flex flex-wrap justify-between gap-3 p-4">
                   <p className="text-[#0d171b] text-4xl font-black leading-tight tracking-[-0.033em] w-full text-center">
                     Welcome Back
@@ -108,10 +101,6 @@ function Login() {
                     {loading ? 'Signing in...' : 'Sign In'}
                   </button>
                 </form>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
